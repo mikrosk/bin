@@ -1,0 +1,17 @@
+#!/bin/sh
+
+export CFLAGS="$CFLAGS -O2 -fomit-frame-pointer"
+export CXXFLAGS="$CXXFLAGS -O2 -fomit-frame-pointer"
+export PREFIX=$HOME/gnu-tools/m68000/m68k-atari-mint
+#export PREFIX=$HOME/gnu-tools/m68k-atari-mint-elf/devkitMINT/m68k-atari-mint
+
+export CONFIGURE_FLAGS="$CONFIGURE_FLAGS --disable-ipv6 --disable-shared --enable-static --host=m68k-atari-mint --prefix=$PREFIX"
+
+./configure $CONFIGURE_FLAGS && make && make install && \
+(make distclean || make clean) && \
+\
+./configure CFLAGS="$CFLAGS -m68020-60" CXXFLAGS="$CXXFLAGS -m68020-60" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m68020-60 --libdir=$PREFIX/lib/m68020-60 && make && make install && \
+(make distclean || make clean) && \
+\
+./configure CFLAGS="$CFLAGS -mcpu=5475" CXXFLAGS="$CXXFLAGS -mcpu=5475" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m5475 --libdir=$PREFIX/lib/m5475 && make && make install && \
+(make distclean || make clean)
