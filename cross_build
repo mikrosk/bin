@@ -10,8 +10,8 @@ export CONFIGURE_FLAGS="$CONFIGURE_FLAGS --disable-ipv6 --disable-shared --enabl
 ./configure $CONFIGURE_FLAGS && make && make install && \
 (make distclean || make clean) && \
 \
-./configure CFLAGS="$CFLAGS -m68020-60" CXXFLAGS="$CXXFLAGS -m68020-60" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m68020-60 --libdir=$PREFIX/lib/m68020-60 && make && make install && \
+./configure CFLAGS="$CFLAGS -m68020-60" CXXFLAGS="$CXXFLAGS -m68020-60" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m68020-60 --sbindir=$PREFIX/sbin/m68020-60 --libdir=$PREFIX/lib/m68020-60 && make && make install && \
 (make distclean || make clean) && \
 \
-./configure CFLAGS="$CFLAGS -mcpu=5475" CXXFLAGS="$CXXFLAGS -mcpu=5475" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m5475 --libdir=$PREFIX/lib/m5475 && make && make install && \
+./configure CFLAGS="$CFLAGS -mcpu=5475" CXXFLAGS="$CXXFLAGS -mcpu=5475" $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m5475 --sbindir=$PREFIX/sbin/m5475 --libdir=$PREFIX/lib/m5475 && make && make install && \
 (make distclean || make clean)
