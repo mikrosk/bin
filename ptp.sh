@@ -12,6 +12,15 @@ ATARIIP=192.168.130.254
 # netmask
 MASK=255.255.255.0
 
+# this works with:
+# [ETH0]
+# Type = bridge
+# Tunnel = $TAP
+# HostIP = $HOSTIP
+# AtariIP = $ATARIIP
+# Netmask = $MASK
+# MAC = 00:41:45:54:48:30
+
 #tunctl -t $TAP -u $USER
 ip tuntap add dev $TAP mode tap user $USER
 sleep 1
