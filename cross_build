@@ -2,7 +2,7 @@
 
 export CFLAGS="$CFLAGS -O2 -fomit-frame-pointer"
 export CXXFLAGS="$CXXFLAGS -O2 -fomit-frame-pointer"
-export PREFIX=$HOME/gnu-tools/m68000/m68k-atari-mint
+export PREFIX=$HOME/gnu-tools/m68000/m68k-atari-mint/sys-root/usr
 #export PREFIX=$HOME/gnu-tools/m68k-atari-mint-elf/devkitMINT/m68k-atari-mint
 
 export CONFIGURE_FLAGS="$CONFIGURE_FLAGS --disable-ipv6 --disable-shared --enable-static --host=m68k-atari-mint --prefix=$PREFIX"
