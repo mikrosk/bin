@@ -19,4 +19,5 @@ else
 	exit 1
 fi
 
-find "$dir" -type f \( -iname Makefile -o -iname '*.h' -o -iname '*.hpp' -o -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc' -o -iname '*.asm' -o -iname '*.s' -o -iname '*.java' \) -print0 | xargs -0 grep -in --color=auto "$str"
+find "$dir" -type f \( -iname Makefile -o -iname '*.h' -o -iname '*.hpp' -o -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc' -o -iname '*.asm' -o -iname '*.s' -o -iname '*.java' \) -print0 \
+	| xargs -0 grep -in --color=always "$str" | awk -F ':' '{ print "micro " $1 " +" $2 ": " $3 }'
