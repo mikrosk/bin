@@ -1,0 +1,3 @@
+#!/bin/sh
+
+wine ~/bin-dos/cldlod.exe $* 2> /dev/null

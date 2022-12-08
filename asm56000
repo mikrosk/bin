@@ -1,0 +1,3 @@
+#!/bin/sh
+
+wine ~/bin-dos/asm56000.exe -P56001c $* 2> /dev/null
