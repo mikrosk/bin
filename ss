@@ -20,4 +20,4 @@ else
 fi
 
 find "$dir" -type f \( -iname Makefile -o -iname '*.h' -o -iname '*.hpp' -o -iname '*.c' -o -iname '*.cpp' -o -iname '*.cc' -o -iname '*.asm' -o -iname '*.s' -o -iname '*.java' \) -print0 \
-	| xargs -0 grep -in --color=always "$str" | awk -F ':' '{ print "micro " $1 " +" $2 ": " $3 }'
+	| xargs -0 grep -in --color=always "$str" | awk -F ':' 'BEGIN{OFS=":";} { first=$1; second=$2; third=$3; $1=$2=$3=""; print "micro " first " +" second ": " third""substr($0,3); }'
