@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# Wrapper script that calls the real pkg-config with the relocated
+# sysroot location.
+#
+set -e
+
+PLATFORM="m68k-atari-mintelf"
+MULTILIB="m68020-60"
+
+SYSROOT=$(${PLATFORM}-gcc -print-sysroot)
+
+export PKG_CONFIG_DIR=
+export PKG_CONFIG_LIBDIR="${SYSROOT}/usr/lib/${MULTILIB}/pkgconfig"
+export PKG_CONFIG_SYSROOT_DIR="${SYSROOT}"
+
+exec pkg-config "$@"
