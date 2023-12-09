@@ -6,12 +6,15 @@
 set -e
 
 PLATFORM="m68k-atari-mintelf"
-MULTILIB="m68020-60"
 
 SYSROOT=$(${PLATFORM}-gcc -print-sysroot)
+LIBDIR=${SYSROOT}/usr/lib/$(${PLATFORM}-gcc $CFLAGS $LDFLAGS -print-multi-directory)
 
 export PKG_CONFIG_DIR=
-export PKG_CONFIG_LIBDIR="${SYSROOT}/usr/lib/${MULTILIB}/pkgconfig"
-export PKG_CONFIG_SYSROOT_DIR="${SYSROOT}"
+if [ -z ${PKG_CONFIG_LIBDIR+x} ]
+then
+	export PKG_CONFIG_LIBDIR="${LIBDIR}/pkgconfig"
+fi
+export PKG_CONFIG_SYSROOT_DIR=
 
 exec pkg-config "$@"
