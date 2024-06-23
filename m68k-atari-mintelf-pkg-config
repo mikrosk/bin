@@ -17,4 +17,4 @@ then
 fi
 export PKG_CONFIG_SYSROOT_DIR=
 
-exec pkg-config "$@"
+exec pkg-config --static "$@"
