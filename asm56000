@@ -1,3 +1,1 @@
-#!/bin/sh
-
-wine ~/bin/asm56000.exe -P56001c $* 2> /dev/null
+/home/mikro/atari/compilers/dsptools.git/asm56000c/asm56000
