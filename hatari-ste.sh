@@ -9,6 +9,7 @@ hatari \
 	--layout us \
 	--language uk \
 	--fast-forward yes \
+	--fast-forward-key-repeat no \
 \
 	--mousewarp yes \
 \

@@ -9,6 +9,7 @@ hatari \
 	--layout us \
 	--language uk \
 	--fast-forward yes \
+	--fast-forward-key-repeat no\
 \
 	--monitor vga \
 	--mousewarp yes \
