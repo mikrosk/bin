@@ -1,3 +1,3 @@
 #!/bin/sh
 
-JAVA_TOOL_OPTIONS='-Dfile.encoding=IBM437' smartgit
+JAVA_TOOL_OPTIONS='-Dfile.encoding=IBM437' smartgit $*
