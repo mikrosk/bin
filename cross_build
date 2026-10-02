@@ -1,17 +1,32 @@
 #!/bin/sh
+#
+# Configure, build and install an autoconf package for every multilib
+# of the cross compiler (except -mshort) into the compiler's sysroot.
+#
+# usage: cross_build [extra configure arguments]
+# TOOL_PREFIX selects the toolchain (default: m68k-atari-mintelf).
 
-export CFLAGS="$CFLAGS -O2 -fomit-frame-pointer"
-export CXXFLAGS="$CXXFLAGS -O2 -fomit-frame-pointer"
-export PREFIX=$HOME/gnu-tools/m68000/m68k-atari-mint/sys-root/usr
-#export PREFIX=$HOME/gnu-tools/m68k-atari-mint-elf/devkitMINT/m68k-atari-mint
+TOOL_PREFIX=${TOOL_PREFIX:-m68k-atari-mintelf}
+SYSROOT=$(${TOOL_PREFIX}-gcc -print-sysroot) || exit 1
+JOBS=-j$(nproc)
 
-export CONFIGURE_FLAGS="$CONFIGURE_FLAGS --disable-ipv6 --disable-shared --enable-static --host=m68k-atari-mint --prefix=$PREFIX"
+for ml in $(${TOOL_PREFIX}-gcc -print-multi-lib | grep -v mshort); do
+	# "m68020-60/mfastcall;@m68020-60@mfastcall" -> dir "m68020-60/mfastcall", flags "-m68020-60 -mfastcall"
+	dir=${ml%%;*}; dir=${dir#.}
+	flags=$(echo "${ml#*;}" | sed 's/@/ -/g; s/^ //')
+	libdir=$SYSROOT/usr/lib${dir:+/$dir}
+	bindir=$SYSROOT/usr/bin${dir:+/$dir}
+	sbindir=$SYSROOT/usr/sbin${dir:+/$dir}
 
-./configure $CONFIGURE_FLAGS && make && make install && \
-(make distclean || make clean) && \
-\
-CFLAGS="$CFLAGS -m68020-60" CXXFLAGS="$CXXFLAGS -m68020-60" ./configure $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m68020-60 --sbindir=$PREFIX/sbin/m68020-60 --libdir=$PREFIX/lib/m68020-60 && make && make install && \
-(make distclean || make clean) && \
-\
-CFLAGS="$CFLAGS -mcpu=5475" CXXFLAGS="$CXXFLAGS -mcpu=5475" ./configure $CONFIGURE_FLAGS --bindir=$PREFIX/bin/m5475 --sbindir=$PREFIX/sbin/m5475 --libdir=$PREFIX/lib/m5475 && make && make install && \
-(make distclean || make clean)
+	echo "=== multilib: ${dir:-default} ($flags)"
+
+	PKG_CONFIG_LIBDIR=$libdir/pkgconfig \
+	CFLAGS="$CFLAGS -O2 -fomit-frame-pointer $flags" \
+	CXXFLAGS="$CXXFLAGS -O2 -fomit-frame-pointer $flags" \
+	LDFLAGS="$LDFLAGS $flags" \
+	./configure --host=$TOOL_PREFIX --prefix=$SYSROOT/usr \
+		--libdir=$libdir --bindir=$bindir --sbindir=$sbindir \
+		--disable-shared --enable-static "$@" \
+		&& make $JOBS && make install && { make distclean || make clean; } \
+		|| exit 1
+done
