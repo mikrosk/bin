@@ -32,13 +32,13 @@ hatari \
 	--cpuclock 32 \
 	--compatible no \
 	--data-cache no \
-	--cpu-exact no \
+	--cpu-exact yes \
 	--addr24 no \
 	--fpu 68882 \
 	--mmu no \
 \
 	--mic no \
-	--sound off \
+	--sound 49170 \
 \
 	--debug-except autostart,bus \
 	--bios-intercept yes \

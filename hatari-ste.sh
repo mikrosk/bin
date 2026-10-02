@@ -30,9 +30,9 @@ hatari \
 	--cpuclock 32 \
 	--compatible no \
 	--data-cache no \
-	--cpu-exact no \
+	--cpu-exact yes \
 \
-	--sound off \
+	--sound 50066 \
 \
 	--debug-except autostart,bus \
 	--bios-intercept yes \

@@ -1,7 +1,7 @@
 #!/bin/sh
 
 TOS=$HOME/atari/roms/32-bit/tos306uk.rom
-#TOS=$HOME/atari/aranym/emutos-512k-1.3/etos512uk.img
+#TOS=$HOME/atari/aranym/emutos-512k-1.4/etos512uk.img
 
 hatari \
 	--confirm-quit no \
@@ -30,12 +30,12 @@ hatari \
 	--cpuclock 32 \
 	--compatible no \
 	--data-cache no \
-	--cpu-exact no \
+	--cpu-exact yes \
 	--addr24 no \
 	--fpu 68882 \
 	--mmu no \
 \
-	--sound off \
+	--sound 50066 \
 \
 	--debug-except autostart,bus \
 	--bios-intercept yes \
